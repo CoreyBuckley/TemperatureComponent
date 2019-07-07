@@ -3,6 +3,8 @@
   - Make thermometer bar scale with temperature returned from api
   - Make a slider for temperature unit
   - More data? Kind of like the compactness though.
+  - Have colors change on time of day or weather condition?
+  - Small animations of weather condition
 -->
 
 <template>
