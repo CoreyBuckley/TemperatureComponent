@@ -1,3 +1,10 @@
+<!--
+  TODO
+  - Make thermometer bar scale with temperature returned from api
+  - Make a slider for temperature unit
+  - More data? Kind of like the compactness though.
+-->
+
 <template>
   <div class="temp-card">
     <svg>
@@ -96,6 +103,7 @@ export default {
   flex-direction: row;
   /*width: 20em;*/
   width: 7em;
+  min-width: 7em;
   height: 10em;
   margin: auto;
   border: solid 1px rgba(60, 18, 247, 0.5);
