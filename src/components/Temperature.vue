@@ -1,11 +1,14 @@
 <!--
   TODO
-  - Make thermometer bar scale with temperature returned from api
+  - Make thermometer bar scale with temperature returned from api [X]
+    - Remark: math scaling in fahrenheit (so other units converted first)
   - Make a slider for temperature unit
   - More data? Kind of like the compactness though.
   - Have colors change on time of day or weather condition?
   - Small animations of weather condition
   - Maybe indicate time or night / day somehow?
+  - Fix so unit doesn't change on update [X]
+  - How to deal with text that breaks boundaries? Ex. Long city names. Temp in 100s for F.
 -->
 
 <template>
@@ -14,7 +17,7 @@
       <circle cx="15" cy="150" r="20" class="no-top-stroke"/>
       <rect x="0" y="-10" ry="5" height="150" width="30" class="no-bottom-stroke"/>
       <!-- <rect x="2" y="10.7" ry="5" height="130" width="27" class="temp-indicator-bar"/> -->
-      <rect x="1" :y="130 - Math.min(150 * (temp / MAX_THERM_TEMP), 150) + 10.7" ry="5" :height="Math.min(150 * (temp / MAX_THERM_TEMP), 150)" width="28" class="temp-indicator-bar"/>
+      <rect x="1" :y="130 - Math.min(150 * (fahrenheit_temp / MAX_THERM_TEMP), 150) + 10.7" ry="5" :height="Math.min(150 * (fahrenheit_temp / MAX_THERM_TEMP), 150)" width="28" class="temp-indicator-bar"/>
     </svg>
     <div class="temp-info-container w-100">
       <div class="temp-display">
@@ -72,6 +75,18 @@ export default {
     // temperature indicator bar will scale up to (in fahrenheit)
     MAX_THERM_TEMP () {
       return 105;
+    },
+    fahrenheit_temp () {
+      if (this.unit === 'F') {
+        return this.temp;
+      }
+      else if (this.unit === 'C') {
+        return this.temp * 1.8 + 32;
+      }
+      else if (this.unit === 'K') {
+        return this.temp * 1.8 - 459.67;
+      }
+      return this.temp;
     }
   },
   mounted () {
@@ -86,11 +101,22 @@ export default {
         fetch(WEATHER_ENDPOINT + `lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`).then(result => {
           // TODO On update the temp unit will change to fahrenheit. Change so it adjusts to whatever
           //      unit is set (if there is one, else default to F)
+          // DONE
           result.json().then(json => {
             // OpenWeatherMap API returns temp in Kelvin by default.
             // Kelvin -> Fahrenheit
-            this.temp = json.main.temp * 1.8 - 459.67;
-            this.unit = 'F';
+            if (this.unit === '' || this.unit === 'F') {
+              this.temp = json.main.temp * 1.8 - 459.67;
+              this.unit = 'F';
+            }
+            else if (this.unit === 'C') {
+              this.temp = json.main.temp - 273.15;
+              this.unit = 'C';
+            }
+            else {
+              this.temp = json.main.temp;
+              this.unit = 'K';
+            }
             this.weather_items = json.weather;
             this.city = json.name;
             console.log(json.weather);
