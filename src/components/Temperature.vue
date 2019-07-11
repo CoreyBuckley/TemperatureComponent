@@ -9,6 +9,7 @@
   - Maybe indicate time or night / day somehow?
   - Fix so unit doesn't change on update [X]
   - How to deal with text that breaks boundaries? Ex. Long city names. Temp in 100s for F.
+  - Make one where thermometer fits into container.
 -->
 
 <template>
@@ -45,8 +46,9 @@
             :title="`${item.description}`"
         />
       </div>
-      <footer class="address-lbl">
-      {{ city }}
+      <footer class="metainfo">
+        <span class="address-lbl">{{ city }}</span>
+        <span class="updated-at"><i>Last updated at:</i> {{ updatedAt }}</span>
       </footer>
     </div>
     </div>
@@ -67,6 +69,7 @@ export default {
       temp: '',
       unit: '',
       weather_items: [],
+      updatedAt: '',
       city: ''
     }
   },
@@ -119,6 +122,7 @@ export default {
             }
             this.weather_items = json.weather;
             this.city = json.name;
+            this.updatedAt = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             console.log(json.weather);
             console.log(json.main.temp);
           }).catch(err => console.log(err));
@@ -177,8 +181,7 @@ export default {
   background-image: linear-gradient(to top right, rgba(0, 55, 255, 0.8), rgba(21, 177, 199, 0.6));
 }
 .temp-info-container {
-  display: flex;
-  flex-flow: row wrap;
+  display: block;
 }
 .w-100 {
   width: 100%;
@@ -197,12 +200,24 @@ export default {
 .temp-number-kelvin {
   width: 49px;
 }
+footer.metainfo {
+  text-align: right;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+}
 .address-lbl {
   color: white;
   text-shadow: 1px 1px black;
   font-weight: bold;
-  padding-top: 60px;
-  padding-left: 2px;
+  padding-top: 30px;
+}
+.updated-at {
+  font-size: 10px;
+  color: white; 
+  font-weight: bold;
+  position: relative;
+  right: 2px;
 }
 .weather-img {
   width: 35px;
