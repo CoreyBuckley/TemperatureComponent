@@ -7,6 +7,12 @@
   - Have colors change on time of day or weather condition?
   - Small animations of weather condition
   - Maybe indicate time or night / day somehow?
+    - If night, background is dark
+      - If cold, background is dark cool colors
+      - Elseif hot, background is dark warm colors
+    - If day, background is bright
+      - If cold, background is bright cool colors
+      - Elseif hot, background is bright warm colors
   - Fix so unit doesn't change on update [X]
   - How to deal with text that breaks boundaries? Ex. Long city names. Temp in 100s for F.
   - Make one where thermometer fits into container.
