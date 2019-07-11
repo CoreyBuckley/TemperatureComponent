@@ -16,6 +16,7 @@
   - Fix so unit doesn't change on update [X]
   - How to deal with text that breaks boundaries? Ex. Long city names. Temp in 100s for F.
   - Make one where thermometer fits into container.
+  - Refresh button? Will fetch temp from remote API and update. (Add debounce so API can't be spammed?)
 -->
 
 <template>
