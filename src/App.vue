@@ -1,16 +1,19 @@
 <template>
   <div id="app">
+    <Todo items="./Todo.txt"/>
     <Temperature />
   </div>
 </template>
 
 <script>
 import Temperature from './components/Temperature.vue'
+import Todo from './components/Todo.vue'
 
 export default {
   name: 'app',
   components: {
-    Temperature
+    Temperature,
+    Todo
   }
 }
 </script>

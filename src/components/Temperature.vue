@@ -1,29 +1,3 @@
-<!--
-  TODO
-  - Make thermometer bar scale with temperature returned from api [X]
-    - Remark: math scaling in fahrenheit (so other units converted first)
-  - Make a slider for temperature unit
-  - More data? Kind of like the compactness though.
-  - Have colors change on time of day or weather condition?
-  - Small animations of weather condition
-  - Maybe indicate time or night / day somehow? [Ability to tell if night is available in updateData.]
-    - If night, background is dark
-      - If cold, background is dark cool colors
-      - Elseif hot, background is dark warm colors
-    - If day, background is bright
-      - If cold, background is bright cool colors
-      - Elseif hot, background is bright warm colors
-  - Fix so unit doesn't change on update [X]
-  - How to deal with text that breaks boundaries? Ex. Long city names. Temp in 100s for F.
-  - Make one where thermometer fits into container.
-  - Refresh button? Will fetch temp from remote API and update. (Add debounce so API can't be spammed?)
-  - Let the user customize the colors themself?
-  - Have a prop for default unit on the component?
-  - Popper tooltips for the icons?
-  - Ticks on the thermometer?
-  - Refactor CSS -> SCSS for easy configurability?
--->
-
 <template>
   <div class="temp-card">
     <svg>
