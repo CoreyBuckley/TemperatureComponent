@@ -19,4 +19,4 @@
 - Have a prop for default unit on the component?
 - Popper tooltips for the icons?
 - Ticks on the thermometer?
-- Refactor CSS -> SCSS for easy configurability?
+- Refactor CSS => SCSS for easy configurability?

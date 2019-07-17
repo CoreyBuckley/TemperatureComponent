@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vue-cli-service build & nodemon server.js",
+    "start": "npm-run-all -p -r buildwatch serverwatch",
+    "buildwatch": "vue-cli-service build --mode dev --watch",
+    "serverwatch": "nodemon server.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
