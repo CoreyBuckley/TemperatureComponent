@@ -5,30 +5,14 @@
 yarn install
 ```
 
-### Compiles and hot-reloads for development
 ```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
+npm run start
 ```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-## Description
+## Description :sun_with_face:
 
 Provides a small and compact widget that displays the current weather based on the HTML5 [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API) and [OpenWeatherMap API](https://openweathermap.org/current).
 
