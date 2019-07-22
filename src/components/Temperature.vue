@@ -1,5 +1,6 @@
 <template>
-  <div class="temp-card">
+  <div class="temp-card put-in-right-half-temp">
+    <!-- <svg viewBox="-6 60 40 40"> -->
     <svg>
       <circle cx="15" cy="150" r="20" class="no-top-stroke"/>
       <rect x="0" y="-10" ry="5" height="150" width="30" class="no-bottom-stroke"/>
@@ -105,7 +106,7 @@ export default {
         }).catch(err => console.log(err));
       }, err => console.log(err));
     },
-    getCycledTemperature: function () {
+    getCycledTemperature: function (event) {
       if (this.unit === 'F') {
         this.unit = 'C';
         this.temp = (this.temp - 32) / 1.8;
@@ -154,11 +155,11 @@ export default {
 .temp-card {
   display: flex;
   flex-direction: row;
-  /*width: 20em;*/
+  /* width: 20em; */
   width: 7em;
   min-width: 7em;
   height: 10em;
-  margin: auto;
+  /* margin: auto; */
   /* border: solid 1px rgba(60, 18, 247, 0.5); */
   border: solid 2px black;
   border-radius: 2px;
@@ -229,6 +230,9 @@ footer.metainfo {
 .unit-container:hover {
   text-shadow: black 2px 2px;
 }
+.unit-container:active {
+  box-shadow: inset 0px 0px 5px rgba(0,0,0,0.3);
+}
 .unit-display {
   transition: text-shadow 0.3s;
 }
@@ -248,10 +252,17 @@ svg {
 }
 /* https://stackoverflow.com/questions/8976791/how-to-set-a-stroke-width1-on-only-certain-sides-of-svg-shapes */
 rect.no-bottom-stroke { stroke-dasharray: 170.5,30; }
-circle.no-top-stroke { stroke-dasharray: 78,34; }
+circle.no-top-stroke { stroke-dasharray: 78,33; }
 rect.temp-indicator-bar {
   fill: red;
   stroke: none;
+  transition: all 0.5s ease-out;
+}
+.put-in-right-half-temp {
+  position: relative;
+  top: 100px;
+  right: 200px;
+  margin-left: auto;
 }
 /* rect.temp-indicator-bar-full {
   height: 150px;

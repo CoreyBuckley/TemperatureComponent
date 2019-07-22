@@ -1,16 +1,21 @@
+// Syntax: [X] or [x] for marking as complete.
+//         //         for comment (won't be parsed)
+//         >>         for sub list item
+//         *          for remark / comment to be displayed under a todo item
 - Make thermometer bar scale with temperature returned from api [X]
-- Remark: math scaling in fahrenheit (so other units converted first)
+* Remark: math scaling in fahrenheit (so other units converted first)
 - Make a slider for temperature unit
 - More data? Kind of like the compactness though.
 - Have colors change on time of day or weather condition?
 - Small animations of weather condition
 - Maybe indicate time or night / day somehow? [Ability to tell if night is available in updateData.]
 - If night, background is dark
-    - If cold, background is dark cool colors
-    - Elseif hot, background is dark warm colors
+    >> If cold, background is dark cool colors [X]
+        >>> Solve Goldbach Conjecture
+    >> Elseif hot, background is dark warm colors
 - If day, background is bright
-    - If cold, background is bright cool colors
-    - Elseif hot, background is bright warm colors
+    >> If cold, background is bright cool colors
+    >> Elseif hot, background is bright warm colors
 - Fix so unit doesn't change on update [X]
 - How to deal with text that breaks boundaries? Ex. Long city names. Temp in 100s for F.
 - Make one where thermometer fits into container.

@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <Todo items="./Todo.txt"/>
+    <!-- <Todo items="./Todo.txt"/> -->
+    <h2>TODO</h2>
+    <hr>
+    <Todo task-symbol='-' style="position:absolute"/>
     <Temperature />
   </div>
 </template>
@@ -19,6 +22,9 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: darkgray;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

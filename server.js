@@ -3,22 +3,24 @@ const app = express();
 
 const fs = require('fs');
 
+// Serve webpack built files
 app.use(express.static("dist"));
 
-app.use(function (req, res, next) {
-    res.header('Access-Control-Expose-Headers', 'Content-Type');
+// Middleware example
+app.use( (req, res, next) => {
     next();
 })
 
-app.listen(8000, function () {
+// Runs on port 8000
+app.listen(8000, () => {
     console.log("Server started at port 8000!");
 });
 
+// Create an endpoint for getting todo items via file.
 app.get("/Todo", (req, res) => {
     fs.readFile('./src/Todo.txt', (err, data) => {
         if (err) throw err;
         else {
-            res.setHeader('Content-Type', 'application/json');
             res.send(data.toString('utf8'));
         }
     });
