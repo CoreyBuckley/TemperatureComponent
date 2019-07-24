@@ -12,6 +12,8 @@
 - If night, background is dark
     >> If cold, background is dark cool colors [X]
         >>> Solve Goldbach Conjecture
+            >>>> Fourth item
+        >>> In Sequence of third item
     >> Elseif hot, background is dark warm colors
 - If day, background is bright
     >> If cold, background is bright cool colors

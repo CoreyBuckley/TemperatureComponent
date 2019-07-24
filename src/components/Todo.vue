@@ -4,17 +4,17 @@
         <span v-for="(item, index) in todoItems"
             :key="index"
         >
-            <li v-if="!!item && !item.startsWith('//') && !item.startsWith('>>')"
+            <li v-if="!!item && !item.startsWith('//') && item.indexOf(taskSymbol + ' ') === -1"
                 :class="item.toLowerCase().indexOf('[x]') == -1 ? 'unchecked' : 'checked'"
             >
                     {{ item | removeSemantics }}
-                    <Todo v-if="item.indexOf('>>') != -1" :data="item.substr(item.indexOf('>> ') + 3).split(' >')" />
+                    <Todo v-if="item.indexOf('>>') > 1 " :data="item.substr(item.indexOf('>> ') + 3).split(' >')" task-symbol=">>" />
                     <!-- <ul v-if="item.indexOf('>>') != -1">
                         <li
                     </ul> -->
             </li>
-            <li v-else-if="item.startsWith('>>')">
-                <Todo :data="todoItems.filter(item => item.startsWith('>>')).map(item => item.substr('>>'.length + 1))" />
+            <li v-else-if="item.startsWith(taskSymbol + ' ')">
+                <Todo :data="startsWithSequence(todoItems, taskSymbol, index)" :task-symbol="taskSymbol + taskSymbol[0]" />
             </li>
         </span>
     </ul>
@@ -30,11 +30,10 @@ export default {
     data () {
         return {
             todoItems: [],
-            depth: 1
+            boundary: -1
         }
     },
     async mounted () {
-        console.log("task symbol is: " + this.taskSymbol);
         if (this.data === undefined) {
             let response = await fetch("/Todo");
             let text = await response.text();
@@ -43,6 +42,31 @@ export default {
         }
         else {
             this.todoItems = this.data;
+        }
+    },
+    methods: {
+        startsWithSequence(arr, pattern, i) {
+            if (i === undefined) {
+                i = 0;
+            }
+            else {
+                if (i >= arr.length) {
+                    throw "Passed in invalid array starting point";
+                }
+            }
+            let newArr = [];
+            while (i < arr.length) {
+                if (arr[i].startsWith(pattern)) {
+                    newArr.push(arr[i]);
+                }
+                else {
+                    this.boundary = i;
+                    console.log("task symbol is: " + this.taskSymbol + ", boundary is: " + this.boundary);
+                    break;
+                }
+                i++;
+            }
+            return newArr;
         }
     },
     filters: {
