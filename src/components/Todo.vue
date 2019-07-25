@@ -4,17 +4,13 @@
         <span v-for="(item, index) in todoItems"
             :key="index"
         >
-            <li v-if="!!item && !item.startsWith('//') && item.indexOf(taskSymbol + ' ') === -1"
-                :class="item.toLowerCase().indexOf('[x]') == -1 ? 'unchecked' : 'checked'"
+            <li v-if="!!item && typeof item === 'string' && !item.startsWith('//')"
+                :class="getTaskItemType(item)"
             >
                     {{ item | removeSemantics }}
-                    <Todo v-if="item.indexOf('>>') > 1 " :data="item.substr(item.indexOf('>> ') + 3).split(' >')" task-symbol=">>" />
-                    <!-- <ul v-if="item.indexOf('>>') != -1">
-                        <li
-                    </ul> -->
             </li>
-            <li v-else-if="item.startsWith(taskSymbol + ' ')">
-                <Todo :data="startsWithSequence(todoItems, taskSymbol, index)" :task-symbol="taskSymbol + taskSymbol[0]" />
+            <li v-else-if="typeof item === 'object'">
+                <Todo :data="item" />
             </li>
         </span>
     </ul>
@@ -25,19 +21,19 @@ export default {
     name: "Todo",
     props: {
         taskSymbol: String,
+        subtaskSymbol: String,
         data: Array
     },
     data () {
         return {
             todoItems: [],
-            boundary: -1
         }
     },
     async mounted () {
         if (this.data === undefined) {
             let response = await fetch("/Todo");
             let text = await response.text();
-            this.todoItems = text.split(this.taskSymbol);
+            this.todoItems = this.prepareNestings(text);
             // this.todoItems = this.todoItems.map(item => item.split('>>')).flat();
         }
         else {
@@ -45,7 +41,27 @@ export default {
         }
     },
     methods: {
-        startsWithSequence(arr, pattern, i) {
+        prepareNestings (taskText) {
+            let newArr = [];
+            let items = taskText.split('\n').splice(1).filter(item => !!item && !item.startsWith('//')).map(item => item.trim());
+            return this.constructNestings(items, this.subtaskSymbol);
+        },
+        constructNestings (items, taskSymbol) {
+            let newArr = [];
+            for (let i = 0; i < items.length; i++) {
+                let item = items[i];
+                if (item.startsWith(taskSymbol + ' ')) {
+                    let subitemsBlock = this.startsWithSequence(items, taskSymbol, i);
+                    newArr.push(this.constructNestings(subitemsBlock, taskSymbol + taskSymbol[0]));
+                    i += subitemsBlock.length - 1;
+                }
+                else {
+                    newArr.push(item);
+                }
+            }
+            return newArr;
+        },
+        startsWithSequence (arr, pattern, i) {
             if (i === undefined) {
                 i = 0;
             }
@@ -60,13 +76,22 @@ export default {
                     newArr.push(arr[i]);
                 }
                 else {
-                    this.boundary = i;
-                    console.log("task symbol is: " + this.taskSymbol + ", boundary is: " + this.boundary);
                     break;
                 }
                 i++;
             }
             return newArr;
+        },
+        getTaskItemType(item) {
+            if (item.startsWith('*')) {
+                return "remark";
+            }
+            else if (item.toLowerCase().indexOf('[x]') == -1) {
+                return "unchecked";
+            }
+            else {
+                return "checked";
+            }
         }
     },
     filters: {
@@ -81,11 +106,13 @@ export default {
             else if (upperResult.length > 1) {
                 scrubbedItem = upperResult[0].trim();
             }
+            // Remove any task syntax.
+            scrubbedItem = scrubbedItem.split('-').join('');
             // Remove any sublist syntax.
             scrubbedItem = scrubbedItem.split('>').join('');
             // Remove any comments / remarks.
-            scrubbedItem = scrubbedItem.split('*');
-            return scrubbedItem[0].trim();
+            scrubbedItem = scrubbedItem.split('*').join('');
+            return scrubbedItem.trim();
         }
     }
 }
@@ -106,5 +133,9 @@ li {
 }
 .unchecked {
     background: url('../assets/uncheckedbox.png') no-repeat left top;
+}
+.remark {
+    font-style: italic;
+    text-indent: 2%;
 }
 </style>
