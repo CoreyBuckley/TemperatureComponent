@@ -1,10 +1,16 @@
 //------------------------------------------------------------------------------------------------------
 //     Syntax    |  INLINE OR LINE ? |                     DESCRIPTION                                 |
-//       -       |       LINE        | for task item                                                   |
+//       -       |       LINE        | for task item.                                                  |
 //   [X] or [x]  |       INLINE      | for marking a task item as complete. Put after the task symbol. |
-//       >>      |       LINE        | for sub list item                                               |
-//       *       |       LINE        | for remark / comment to be displayed under a todo item          |
-//       //      |       BOTH        | for comment (won't be parsed)                                   |
+//---------------|-------------------|-----------------------------------------------------------------|
+//               |                   | for sub list item. For each successive sublist,                 |
+//               |                   | repeat the sublist symbol.                                      |
+//       >       |       LINE        | (Ex. >> Item 1 of a parent sublist,                             |
+//               |                   |          >>> Item 1 of a parent sublist                         |
+//               |                   | )                                                               |
+//-----------------------------------------------------------------------------------------------------|                                     
+//       *       |       LINE        | for remark / comment to be displayed under a todo item.         |
+//       //      |       BOTH        | for comment (won't be parsed).                                  |
 //------------------------------------------------------------------------------------------------------
 - Make thermometer bar scale with temperature returned from api [X]
     * Remark: math scaling in fahrenheit (so other units converted first)
