@@ -20,7 +20,6 @@
 export default {
     name: "Todo",
     props: {
-        taskSymbol: String,
         subtaskSymbol: String,
         data: Array
     },
@@ -46,13 +45,13 @@ export default {
             let items = taskText.split('\n').splice(1).filter(item => !!item && !item.startsWith('//')).map(item => item.trim());
             return this.constructNestings(items, this.subtaskSymbol);
         },
-        constructNestings (items, taskSymbol) {
+        constructNestings (items, subtaskSymbol) {
             let newArr = [];
             for (let i = 0; i < items.length; i++) {
                 let item = items[i];
-                if (item.startsWith(taskSymbol + ' ')) {
-                    let subitemsBlock = this.startsWithSequence(items, taskSymbol, i);
-                    newArr.push(this.constructNestings(subitemsBlock, taskSymbol + taskSymbol[0]));
+                if (item.startsWith(subtaskSymbol + ' ')) {
+                    let subitemsBlock = this.startsWithSequence(items, subtaskSymbol, i);
+                    newArr.push(this.constructNestings(subitemsBlock, subtaskSymbol + subtaskSymbol[0]));
                     i += subitemsBlock.length - 1;
                 }
                 else {
@@ -62,14 +61,7 @@ export default {
             return newArr;
         },
         startsWithSequence (arr, pattern, i) {
-            if (i === undefined) {
-                i = 0;
-            }
-            else {
-                if (i >= arr.length) {
-                    throw "Passed in invalid array starting point";
-                }
-            }
+            if (i === undefined) i = 0;
             let newArr = [];
             while (i < arr.length) {
                 if (arr[i].startsWith(pattern)) {

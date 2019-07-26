@@ -21,11 +21,6 @@
 - Maybe indicate time or night / day somehow? [Ability to tell if night is available in updateData.]
 - If night, background is dark
     > If cold, background is dark cool colors [X]
-        >> Solve Goldbach Conjecture
-            >>> Fourth item
-                >>>> Depth 4
-                    >>>>> Depth 5
-        >> In Sequence of third item
     > Elseif hot, background is dark warm colors
 - If day, background is bright
     > If cold, background is bright cool colors
