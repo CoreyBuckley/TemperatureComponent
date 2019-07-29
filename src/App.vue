@@ -3,7 +3,7 @@
     <!-- <Todo items="./Todo.txt"/> -->
     <h2>TODO</h2>
     <hr>
-    <Todo task-symbol='-' subtask-symbol='>' style="position:absolute"/>
+    <Todo subtask-symbol='>' style="position:absolute"/>
     <Temperature />
   </div>
 </template>
