@@ -1,3 +1,7 @@
+<!-- TODO -->
+<!-- See design prototype for image. -->
+<!-- Has more controls, larger. -->
+
 <template>
   <div class="temp-card put-in-right-half-temp">
     <!-- <svg viewBox="-6 60 40 40"> -->
@@ -50,7 +54,7 @@ import {apiKey} from '../config.js';
 const WEATHER_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather?APPID=${apiKey}&`
 
 export default {
-  name: 'Temperature',
+  name: 'TemperatureDetailed',
   data () {
     return {
       temp: '',

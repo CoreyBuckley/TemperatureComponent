@@ -4,18 +4,18 @@
     <h2>TODO</h2>
     <hr>
     <Todo subtask-symbol='>' style="position:absolute"/>
-    <Temperature />
+    <Temperature-Slim />
   </div>
 </template>
 
 <script>
-import Temperature from './components/Temperature.vue'
+import TemperatureSlim from './components/TemperatureSlim.vue'
 import Todo from './components/Todo.vue'
 
 export default {
   name: 'app',
   components: {
-    Temperature,
+    TemperatureSlim,
     Todo
   }
 }
